@@ -1,3 +1,6 @@
+/* ====== CSS Reset Global ====== */
+
+/* 1. Variáveis de tema */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -10,31 +13,56 @@
   }
 }
 
+/* 2. Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. Reset de elementos padrões */
 html,
 body {
+  height: 100%;
+  width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-size: 16px;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
+/* 4. Acessibilidade e aparência */
 a {
   color: inherit;
   text-decoration: none;
 }
 
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* 5. Lista limpa */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 6. Tema escuro via prefers-color-scheme */
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
