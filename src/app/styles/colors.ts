@@ -1,4 +1,5 @@
 export const grayColor = {
+  grayColorPrimaryLigthen1: "#DDE1E6",
   grayColorPrimaryLigthen2: "#697077",
   grayColorPrimaryLigthen5: "#858C94",
   grayColorDarken1: "#21272A",

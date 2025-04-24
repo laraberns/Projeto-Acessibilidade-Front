@@ -3,7 +3,7 @@ import { grayColor, orangeColor, whiteColor } from "../styles/colors";
 
 export default function CustomTextField({ icon, ...props }: any) {
   return (
-    <Box sx={{ width: "80%", my: 2 }}>
+    <Box sx={{ width: "80%"}}>
       <TextField
         {...props}
         required
@@ -33,6 +33,8 @@ export default function CustomTextField({ icon, ...props }: any) {
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
               borderColor: orangeColor.orangeColorDarken1,
+              borderRadius: "10px",
+              borderWidth: "2px",
             },
             "&:hover fieldset": {
               borderColor: orangeColor.orangeColorDarken1,
