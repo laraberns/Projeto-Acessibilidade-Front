@@ -1,3 +1,4 @@
+import { grayColor } from "@/app/styles/colors";
 import { Typography, TypographyProps } from "@mui/material";
 
 export default function Title(props: TypographyProps) {
@@ -6,6 +7,7 @@ export default function Title(props: TypographyProps) {
       {...props}
       sx={{
         fontWeight: 600,
+        color: grayColor.grayColorDarken1,
         fontSize: "57px",
         lineHeight: "64px",
         ...props.sx,
