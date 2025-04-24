@@ -1,19 +1,26 @@
-import type { Metadata } from "next";
+"use client";
+import React from "react";
+import { ThemeProvider, createTheme } from "@mui/material";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Entendo o seu Dia",
-};
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const metadata = {
+    title: "Entendo seu dia",
+  };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  const theme = createTheme({
+    typography: {
+      fontFamily: ["Source Sans 3, sans-serif"].join(","),
+    },
+  });
+
   return (
-    <html lang="en">
+    <html lang="pt-br">
+      <head>
+        <title>{metadata.title}</title>
+      </head>
       <body>
-        {children}
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </body>
     </html>
   );
