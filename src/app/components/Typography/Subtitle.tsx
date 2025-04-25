@@ -7,7 +7,10 @@ export default function Subtitle(props: TypographyProps) {
       {...props}
       sx={{
         fontWeight: 100,
-        fontSize: "48px",
+        fontSize: {
+          xs: "32px",
+          lg: "48px",
+        },
         color: grayColor.grayColorDarken1,
         lineHeight: "44px",
         ...props.sx,

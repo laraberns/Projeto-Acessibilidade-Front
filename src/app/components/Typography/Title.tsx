@@ -8,7 +8,10 @@ export default function Title(props: TypographyProps) {
       sx={{
         fontWeight: 600,
         color: grayColor.grayColorDarken1,
-        fontSize: "57px",
+        fontSize: {
+          xs: "48px",
+          lg: "57px",
+        },
         lineHeight: "64px",
         ...props.sx,
       }}
