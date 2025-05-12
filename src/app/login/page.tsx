@@ -10,8 +10,12 @@ import CustomCheckbox from "../components/CustomCheckbox";
 import Paragraph from "../components/Typography/Paragraph";
 import CustomButton from "../components/CustomButton";
 import CustomDivider from "../components/Divider";
+import CustomModalPassword from "../components/CustomModalPassword";
+import { useState } from "react";
 
 export default function Login() {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <Box display="flex" height="100vh" width="100vw">
       <BannerPcImage />
@@ -21,7 +25,7 @@ export default function Login() {
         alignItems="center"
         justifyContent="center"
         flexDirection="column"
-        px={4}
+        px={5}
         gap={2}
       >
         <Title>👋 Olá, seja bem-vindo(a)!</Title>
@@ -64,7 +68,13 @@ export default function Login() {
             label="Login automático (lembrar o usuário)"
             defaultChecked
           />
-          <Paragraph fontWeight={300}>Esqueci a minha senha</Paragraph>
+          <Paragraph
+            fontWeight={300}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+            onClick={() => setOpenModal(true)}
+          >
+            Esqueci a minha senha
+          </Paragraph>
         </Box>
         <CustomButton
           label="Entrar"
@@ -81,6 +91,10 @@ export default function Login() {
           <Paragraph>+ Criar Conta</Paragraph>
         </Box>
       </Box>
+      <CustomModalPassword
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+      />
     </Box>
   );
 }

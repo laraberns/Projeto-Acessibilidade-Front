@@ -7,11 +7,13 @@ type ParagraphProps = TypographyProps & {
 
 export default function Paragraph({
   fontWeight = 700,
+  onClick,
   ...props
 }: ParagraphProps) {
   return (
     <Typography
       {...props}
+      onClick={onClick}
       sx={{
         fontWeight,
         fontSize: {
@@ -20,6 +22,7 @@ export default function Paragraph({
         },
         color: blackColor.blackColorBase,
         lineHeight: "20px",
+        cursor: onClick ? "pointer" : "inherit",
         ...(props.sx || {}),
       }}
     >
