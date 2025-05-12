@@ -7,7 +7,7 @@ export default function BannerPcImage() {
       sx={{
         display: {
           xs: "none",
-          lg: "block",
+          lg: "inherit",
         },
       }}
     >

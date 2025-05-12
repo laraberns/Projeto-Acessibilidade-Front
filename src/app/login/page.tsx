@@ -17,7 +17,7 @@ export default function Login() {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Box display="flex" height="100vh" width="100vw">
+    <Box display="flex" height="100vh">
       <BannerPcImage />
       <Box
         flex={1}
