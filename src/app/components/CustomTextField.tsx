@@ -1,26 +1,37 @@
-import { Box, InputAdornment, TextField } from "@mui/material";
+import { Box, InputAdornment, TextField, TextFieldProps } from "@mui/material";
 import { grayColor, orangeColor, whiteColor } from "../styles/colors";
+import { ReactNode } from "react";
 
-export default function CustomTextField({ icon, ...props }: any) {
+interface CustomTextFieldProps extends Omit<TextFieldProps, "variant"> {
+  icon?: ReactNode;
+  required?: boolean;
+}
+
+export default function CustomTextField({
+  icon,
+  required = true,
+  label,
+  placeholder,
+  ...rest
+}: CustomTextFieldProps) {
   return (
-    <Box sx={{ width: "80%"}}>
+    <Box sx={{ width: "80%" }}>
       <TextField
-        {...props}
-        required
+        fullWidth
+        required={required}
         variant="outlined"
+        label={label}
+        placeholder={placeholder}
         InputProps={{
-          startAdornment: icon && (
-            <InputAdornment
-              position="start"
-              sx={{ color: grayColor.grayColorPrimaryLigthen2 }}
-            >
+          startAdornment: icon ? (
+            <InputAdornment position="start" sx={{ color: grayColor.grayColorPrimaryLigthen2 }}>
               {icon}
             </InputAdornment>
-          ),
+          ) : undefined,
         }}
         InputLabelProps={{
           shrink: true,
-          style: {
+          sx: {
             color: orangeColor.orangeColorDarken1,
             fontWeight: 700,
             fontSize: "19px",
@@ -29,7 +40,6 @@ export default function CustomTextField({ icon, ...props }: any) {
           },
         }}
         sx={{
-          width: "100%",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
               borderColor: orangeColor.orangeColorDarken1,
@@ -47,6 +57,7 @@ export default function CustomTextField({ icon, ...props }: any) {
             },
           },
         }}
+        {...rest}
       />
     </Box>
   );
