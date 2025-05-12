@@ -1,7 +1,7 @@
 import { grayColor } from "@/app/styles/colors";
 import { Typography } from "@mui/material";
 
-export default function ParagraphModal({ ...props }) {
+export default function ParagraphSm({ ...props }) {
   return (
     <Typography
       sx={{

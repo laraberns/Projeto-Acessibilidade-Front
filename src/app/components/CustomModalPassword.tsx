@@ -4,9 +4,8 @@ import CustomTextField from "./CustomTextField";
 import EmailIcon from "@mui/icons-material/Email";
 import CustomButton from "./CustomButton";
 import { whiteColor } from "../styles/colors";
-import TitleModal from "./Typography/TitleModal";
-import ParagraphModal from "./Typography/ParagraphModal";
-import { text } from "stream/consumers";
+import TitleSm from "./Typography/TitleSm";
+import ParagraphSm from "./Typography/ParagraphSm";
 
 interface CustomModalProps {
   open: boolean;
@@ -28,10 +27,13 @@ const style = {
   alignItems: "center",
   p: 8,
   width: "80%",
-  textAlign: "center"
+  textAlign: "center",
 };
 
-export default function CustomModalPassword({ open, onClose }: CustomModalProps) {
+export default function CustomModalPassword({
+  open,
+  onClose,
+}: CustomModalProps) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={{ ...style, position: "relative" }}>
@@ -49,10 +51,11 @@ export default function CustomModalPassword({ open, onClose }: CustomModalProps)
           <CloseIcon />
         </IconButton>
 
-        <TitleModal>Esqueceu a sua senha?</TitleModal>
-        <ParagraphModal>
-          Não se preocupe, enviaremos uma mensagem para ajudar você a redefinir sua senha.
-        </ParagraphModal>
+        <TitleSm>Esqueceu a sua senha?</TitleSm>
+        <ParagraphSm>
+          Não se preocupe, enviaremos uma mensagem para ajudar você a redefinir
+          sua senha.
+        </ParagraphSm>
         <CustomTextField
           label="Email"
           placeholder="ana@email.com"

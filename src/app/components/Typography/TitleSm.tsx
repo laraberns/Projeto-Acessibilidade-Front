@@ -1,7 +1,7 @@
 import { grayColor } from "@/app/styles/colors";
 import { Typography, TypographyProps } from "@mui/material";
 
-export default function TitleModal(props: TypographyProps) {
+export default function TitleSm(props: TypographyProps) {
   return (
     <Typography
       {...props}
