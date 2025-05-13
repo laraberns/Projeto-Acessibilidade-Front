@@ -2,6 +2,7 @@
 import React from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import "./styles/globals.css";
+import CustomToast from "./components/CustomToast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const metadata = {
@@ -20,7 +21,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <title>{metadata.title}</title>
       </head>
       <body>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          {children}
+          <CustomToast />
+        </ThemeProvider>
       </body>
     </html>
   );
