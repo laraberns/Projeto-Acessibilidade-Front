@@ -1,14 +1,29 @@
-
 import { Button } from "@mui/material";
-import { orangeColor, whiteColor } from "../styles/colors";
+import { orangeColor, whiteColor, grayColor } from "../styles/colors";
 
-export default function CustomButton({ label, onClick }: any) {
+interface CustomButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: "default" | "cancel";
+}
+
+export default function CustomButton({
+  label,
+  onClick,
+  variant = "default",
+}: CustomButtonProps) {
+  const isCancel = variant === "cancel";
+
   return (
     <Button
       onClick={onClick}
       sx={{
-        backgroundColor: orangeColor.orangeColorPrimaryBase,
-        color: whiteColor.whiteColorBase,
+        backgroundColor: isCancel
+          ? "transparent"
+          : orangeColor.orangeColorPrimaryBase,
+        color: isCancel
+          ? grayColor.grayColorDarken1
+          : whiteColor.whiteColorBase,
         fontSize: "19px",
         lineHeight: "20px",
         fontWeight: 700,
@@ -16,8 +31,12 @@ export default function CustomButton({ label, onClick }: any) {
         borderRadius: "8px",
         paddingY: "12px",
         textTransform: "none",
+        boxShadow: "none",
+        border: isCancel ? `1px solid ${grayColor.grayColorDarken1}` : "none",
         "&:hover": {
-          backgroundColor: orangeColor.orangeColorDarken1,
+          backgroundColor: isCancel
+            ? "rgba(0,0,0,0.04)"
+            : orangeColor.orangeColorDarken1,
         },
       }}
     >

@@ -62,7 +62,9 @@ export default function Login() {
       <CustomButton label="Entrar" onClick={() => alert("Login")} />
       <CustomDivider />
       <Box sx={{ width: "80%", display: "flex", justifyContent: "left" }}>
-        <Paragraph>+ Criar Conta</Paragraph>
+        <Paragraph onClick={() => window.location.href = "/register"}>
+          + Criar Conta
+        </Paragraph>
       </Box>
       <CustomModalPassword
         open={openModal}
