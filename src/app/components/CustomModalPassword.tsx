@@ -6,6 +6,7 @@ import CustomButton from "./CustomButton";
 import { whiteColor } from "../styles/colors";
 import TitleSm from "./Typography/TitleSm";
 import ParagraphSm from "./Typography/ParagraphSm";
+import { toast } from "react-toastify";
 
 interface CustomModalProps {
   open: boolean;
@@ -34,10 +35,13 @@ export default function CustomModalPassword({
   open,
   onClose,
 }: CustomModalProps) {
+  const handleSendEmail = () => {
+    toast.success("Email enviado com sucesso! Confira sua caixa de entrada.");
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={{ ...style, position: "relative" }}>
-        {/* Ícone de Fechar */}
         <IconButton
           onClick={onClose}
           sx={{
@@ -61,10 +65,7 @@ export default function CustomModalPassword({
           placeholder="ana@email.com"
           icon={<EmailIcon />}
         />
-        <CustomButton
-          label="Enviar"
-          onClick={() => alert("Example showing other props works")}
-        />
+        <CustomButton label="Enviar" onClick={handleSendEmail} />
       </Box>
     </Modal>
   );
