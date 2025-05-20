@@ -22,7 +22,7 @@ export default function CustomButton({
           ? "transparent"
           : orangeColor.orangeColorPrimaryBase,
         color: isCancel
-          ? grayColor.grayColorDarken1
+          ? orangeColor.orangeColorPrimaryBase
           : whiteColor.whiteColorBase,
         fontSize: "19px",
         lineHeight: "20px",
@@ -32,7 +32,7 @@ export default function CustomButton({
         paddingY: "12px",
         textTransform: "none",
         boxShadow: "none",
-        border: isCancel ? `1px solid ${grayColor.grayColorDarken1}` : "none",
+        border:`2px solid ${orangeColor.orangeColorPrimaryBase}`,
         "&:hover": {
           backgroundColor: isCancel
             ? "rgba(0,0,0,0.04)"

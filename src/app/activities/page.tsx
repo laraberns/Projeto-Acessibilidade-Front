@@ -7,6 +7,7 @@ import CustomButton from "../components/CustomButton";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
 import CustomSelectField from "../components/CustomSelectField";
+import CustomModalAddActivity from "../components/CustomModalAddActivity";
 
 function formatDateToLong(dateString: string) {
   const [year, month, day] = dateString.split("-").map(Number);
@@ -47,21 +48,33 @@ const cardData = [
 
 export default function Activities() {
   const [dateRange, setDateRange] = useState("week");
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [activities, setActivities] = useState(cardData);
 
   const handleDateRangeChange = (event: SelectChangeEvent) => {
     setDateRange(event.target.value);
   };
 
-  const groupedByDate: Record<string, typeof cardData> = {};
-  cardData.forEach((item) => {
+  const groupedByDate: Record<string, typeof activities> = {};
+  activities.forEach((item) => {
     if (!groupedByDate[item.date]) {
       groupedByDate[item.date] = [];
     }
     groupedByDate[item.date].push(item);
   });
-
+  
   const sortedDates = Object.keys(groupedByDate).sort();
 
+  const handleSaveNewActivity = (activity: {
+    title: string;
+    date: string;
+    hour: string;
+    state?: "active" | "done";
+  }) => {
+    setActivities((prev) => [...prev, { ...activity, state: "active" }]);
+    setAddModalOpen(false);
+  };
+  
   return (
     <PageLayout isAdmin={isAdmin} title={title} subtitle={subtitleText}>
       <Box
@@ -71,14 +84,14 @@ export default function Activities() {
           flexWrap: "wrap",
           gap: 2,
           width: "100%",
-          flexDirection: "column"
+          flexDirection: "column",
         }}
       >
         <Box
           sx={{
             maxWidth: "350px",
             width: "100%",
-            mt: 2
+            mt: 2,
           }}
         >
           <CustomSelectField
@@ -127,9 +140,17 @@ export default function Activities() {
           ))}
         </Box>
       </Box>
-      <Box sx={{ maxWidth: 300}}>
-        <CustomButton label="Adicionar Atividade" onClick={() => {}} />
+      <Box sx={{ maxWidth: 300 }}>
+        <CustomButton
+          label="+ Adicionar Atividade"
+          onClick={() => setAddModalOpen(true)}
+        />
       </Box>
+      <CustomModalAddActivity
+        open={addModalOpen}
+        onClose={() => setAddModalOpen(false)}
+        onSave={handleSaveNewActivity}
+      />
     </PageLayout>
   );
 }

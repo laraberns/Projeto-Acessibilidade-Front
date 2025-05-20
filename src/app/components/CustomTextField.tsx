@@ -24,7 +24,10 @@ export default function CustomTextField({
         placeholder={placeholder}
         InputProps={{
           startAdornment: icon ? (
-            <InputAdornment position="start" sx={{ color: grayColor.grayColorPrimaryLigthen2 }}>
+            <InputAdornment
+              position="start"
+              sx={{ color: grayColor.grayColorPrimaryLigthen2 }}
+            >
               {icon}
             </InputAdornment>
           ) : undefined,
@@ -37,6 +40,9 @@ export default function CustomTextField({
             fontSize: "19px",
             paddingRight: "10px",
             backgroundColor: whiteColor.whiteColorBase,
+            "&.Mui-focused": {
+              color: orangeColor.orangeColorDarken1,
+            },
           },
         }}
         sx={{

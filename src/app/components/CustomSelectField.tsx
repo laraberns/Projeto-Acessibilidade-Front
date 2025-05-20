@@ -5,6 +5,8 @@ import {
   InputLabel,
   FormControl,
   SelectChangeEvent,
+  OutlinedInput,
+  InputAdornment,
 } from "@mui/material";
 import { grayColor, orangeColor, whiteColor } from "../styles/colors";
 import { ReactNode } from "react";
@@ -38,15 +40,27 @@ export default function CustomSelectField({
             paddingRight: "10px",
             backgroundColor: whiteColor.whiteColorBase,
             "&.Mui-focused": {
-              color: orangeColor.orangeColorDarken1,  
+              color: orangeColor.orangeColorDarken1,
             },
           }}
         >
           {label}
         </InputLabel>
+
         <Select
           value={value}
           onChange={onChange}
+          input={
+            <OutlinedInput
+              startAdornment={
+                icon ? (
+                  <InputAdornment position="start" sx={{ color: grayColor.grayColorPrimaryLigthen2 }}>
+                    {icon}
+                  </InputAdornment>
+                ) : undefined
+              }
+            />
+          }
           sx={{
             "& .MuiOutlinedInput-notchedOutline": {
               borderColor: orangeColor.orangeColorDarken1,
@@ -75,4 +89,3 @@ export default function CustomSelectField({
     </Box>
   );
 }
-
