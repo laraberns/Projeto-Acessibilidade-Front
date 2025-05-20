@@ -12,7 +12,11 @@ interface CustomCardActivityProps {
   state: string;
   onEdit?: () => void;
   onDelete?: () => void;
-  onComplete?: () => void;
+  onRequestToggleComplete?: (
+    currentState: "active" | "done",
+    title: string,
+    hour: string
+  ) => void;
 }
 
 export default function CustomCardActivity({
@@ -21,7 +25,7 @@ export default function CustomCardActivity({
   state,
   onEdit,
   onDelete,
-  onComplete,
+  onRequestToggleComplete,
 }: CustomCardActivityProps) {
   const chipLabel = state === "done" ? "Finalizado" : "Pendente";
   const chipColor =
@@ -38,8 +42,8 @@ export default function CustomCardActivity({
         padding: 2,
         borderLeft: `6px solid ${chipColor}`,
         width: {
-          xs: "100%",  
-          md: "70%",   
+          xs: "100%",
+          md: "70%",
         },
         boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.15)",
         borderRadius: 2,
@@ -72,7 +76,11 @@ export default function CustomCardActivity({
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1, mt: 1 }}>
-        <IconButton onClick={onComplete} disabled={state === "done"}>
+        <IconButton
+          onClick={() =>
+            onRequestToggleComplete?.(state as "active" | "done", title, hour)
+          }
+        >
           <CheckIcon
             sx={{
               fontSize: 32,
@@ -83,6 +91,7 @@ export default function CustomCardActivity({
             }}
           />
         </IconButton>
+
         <IconButton onClick={onEdit}>
           <EditIcon sx={{ fontSize: 32, color: grayColor.grayColorDarken1 }} />
         </IconButton>

@@ -8,6 +8,8 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
 import CustomSelectField from "../components/CustomSelectField";
 import CustomModalAddActivity from "../components/CustomModalAddActivity";
+import { toast } from "react-toastify";
+import CustomModalCheckActivity from "../components/CustomModalCheckActivity";
 
 function formatDateToLong(dateString: string) {
   const [year, month, day] = dateString.split("-").map(Number);
@@ -50,6 +52,53 @@ export default function Activities() {
   const [dateRange, setDateRange] = useState("week");
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [activities, setActivities] = useState(cardData);
+  const [checkModalOpen, setCheckModalOpen] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState<{
+    title: string;
+    hour: string;
+    currentState: "active" | "done";
+  } | null>(null);
+
+  const handleOpenCheckModal = (
+    currentState: "active" | "done",
+    title: string,
+    hour: string
+  ) => {
+    setSelectedActivity({ title, hour, currentState });
+    setCheckModalOpen(true);
+  };
+
+  const toggleActivityState = (
+    title: string,
+    hour: string,
+    newState: "active" | "done"
+  ) => {
+    setActivities((prev) =>
+      prev.map((activity) =>
+        activity.title === title && activity.hour === hour
+          ? { ...activity, state: newState }
+          : activity
+      )
+    );
+  };
+
+  const handleCompleteActivity = () => {
+    if (selectedActivity) {
+      const newState =
+        selectedActivity.currentState === "done" ? "active" : "done";
+      toggleActivityState(
+        selectedActivity.title,
+        selectedActivity.hour,
+        newState
+      );
+      toast.success(
+        `Atividade marcada como ${
+          newState === "done" ? "concluída" : "pendente"
+        }!`
+      );
+    }
+    setCheckModalOpen(false);
+  };
 
   const handleDateRangeChange = (event: SelectChangeEvent) => {
     setDateRange(event.target.value);
@@ -62,7 +111,7 @@ export default function Activities() {
     }
     groupedByDate[item.date].push(item);
   });
-  
+
   const sortedDates = Object.keys(groupedByDate).sort();
 
   const handleSaveNewActivity = (activity: {
@@ -74,7 +123,7 @@ export default function Activities() {
     setActivities((prev) => [...prev, { ...activity, state: "active" }]);
     setAddModalOpen(false);
   };
-  
+
   return (
     <PageLayout isAdmin={isAdmin} title={title} subtitle={subtitleText}>
       <Box
@@ -130,10 +179,12 @@ export default function Activities() {
                   key={card.title + card.hour}
                   title={card.title}
                   hour={card.hour}
-                  state={card.state}
+                  state={card.state ?? "active"}
                   onEdit={() => {}}
                   onDelete={() => {}}
-                  onComplete={() => {}}
+                  onRequestToggleComplete={(currentState, title, hour) =>
+                    handleOpenCheckModal(currentState, title, hour)
+                  }
                 />
               ))}
             </Box>
@@ -151,6 +202,14 @@ export default function Activities() {
         onClose={() => setAddModalOpen(false)}
         onSave={handleSaveNewActivity}
       />
+      {selectedActivity && (
+        <CustomModalCheckActivity
+          open={checkModalOpen}
+          onClose={() => setCheckModalOpen(false)}
+          onSave={handleCompleteActivity}
+          activity={selectedActivity}
+        />
+      )}
     </PageLayout>
   );
 }
