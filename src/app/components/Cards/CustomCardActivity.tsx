@@ -4,7 +4,7 @@ import { Box, Card, Chip, IconButton, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/EditOutlined";
-import { grayColor, greenColor, orangeColor } from "../styles/colors";
+import { grayColor, greenColor, orangeColor } from "@/app/styles/colors";
 
 interface CustomCardActivityProps {
   title: string;

@@ -1,10 +1,10 @@
 "use client";
 
 import { Box } from "@mui/material";
-import CustomCardHome from "../components/CustomCardHome";
-import CustomMenuHome from "../components/CustomMenuHome";
 import SubtitleSm from "../components/Typography/SubtitleSm";
-import PageLayout from "../components/PageLayout";
+import PageLayout from "../components/Layouts/PageLayout";
+import CustomCardHome from "../components/Cards/CustomCardHome";
+import CustomMenuHome from "../components/Menu/CustomMenuHome";
 
 const isAdmin = false;
 

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { ReactNode } from "react";
-import { blackColor, grayColor } from "../styles/colors";
+import { blackColor, grayColor } from "../../styles/colors";
 
 interface SidebarMenuItemProps {
   icon: ReactNode;

@@ -1,20 +1,14 @@
 "use client";
 
-import {
-  Box,
-  IconButton,
-  Avatar,
-  useMediaQuery,
-  Theme,
-} from "@mui/material";
+import { Box, IconButton, Avatar, useMediaQuery, Theme } from "@mui/material";
 import { useState } from "react";
-import SidebarMenuItem from "./SidebarMenuItem";
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { whiteColor, grayColor } from "../styles/colors";
+import { whiteColor, grayColor } from "../../styles/colors";
+import SidebarMenuItem from "./SidebarMenuItem";
 
 interface SidebarMenuProps {
   isAdmin: boolean;

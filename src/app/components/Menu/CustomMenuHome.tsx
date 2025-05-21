@@ -1,7 +1,7 @@
-import { Box, Typography, Link as MuiLink } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useRouter } from "next/navigation";
-import { whiteColor, blackColor, grayColor } from "../styles/colors";
+import { whiteColor, blackColor } from "../../styles/colors";
 
 interface MenuItem {
   title: string;

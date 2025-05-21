@@ -24,3 +24,7 @@ export const blackColor = {
 export const whiteColor = {
   whiteColorBase: "#FFFFFF",
 };
+
+export const redColor = {
+  redColorBase: "red",
+};

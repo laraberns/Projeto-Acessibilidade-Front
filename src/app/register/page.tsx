@@ -9,10 +9,10 @@ import AuthPageLayout from "@/app/components/Layouts/AuthPageLayout";
 import TitleSm from "@/app/components/Typography/TitleSm";
 import ParagraphSm from "@/app/components/Typography/ParagraphSm";
 import Paragraph from "@/app/components/Typography/Paragraph";
-import CustomTextField from "@/app/components/CustomTextField";
-import CustomSelectField from "@/app/components/CustomSelectField";
-import CustomButton from "@/app/components/CustomButton";
 import CustomDivider from "@/app/components/Divider";
+import CustomSelectField from "../components/Form/CustomSelectField";
+import CustomTextField from "../components/Form/CustomTextField";
+import CustomButton from "../components/Form/CustomButton";
 
 export default function Register() {
   const [step, setStep] = useState(1);

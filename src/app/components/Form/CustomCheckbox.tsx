@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel, CheckboxProps } from "@mui/material";
-import { orangeColor, blackColor } from "../styles/colors";
+import { orangeColor, blackColor } from "../../styles/colors";
 
 interface CustomCheckboxProps extends CheckboxProps {
   label: string;

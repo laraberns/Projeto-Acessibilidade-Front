@@ -1,4 +1,3 @@
-// components/layouts/AuthPageLayout.tsx
 "use client";
 
 import { Box } from "@mui/material";

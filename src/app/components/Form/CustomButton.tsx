@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
-import { orangeColor, whiteColor, grayColor } from "../styles/colors";
+import { orangeColor, whiteColor, grayColor, redColor } from "../../styles/colors";
 
 interface CustomButtonProps {
   label: string;
   onClick: () => void;
-  variant?: "default" | "cancel";
+  variant?: "default" | "cancel" | "danger";
 }
 
 export default function CustomButton({
@@ -13,6 +13,7 @@ export default function CustomButton({
   variant = "default",
 }: CustomButtonProps) {
   const isCancel = variant === "cancel";
+  const isDanger = variant === "danger";
 
   return (
     <Button
@@ -20,6 +21,8 @@ export default function CustomButton({
       sx={{
         backgroundColor: isCancel
           ? "transparent"
+          : isDanger
+          ? redColor.redColorBase
           : orangeColor.orangeColorPrimaryBase,
         color: isCancel
           ? orangeColor.orangeColorPrimaryBase
@@ -32,10 +35,14 @@ export default function CustomButton({
         paddingY: "12px",
         textTransform: "none",
         boxShadow: "none",
-        border:`2px solid ${orangeColor.orangeColorPrimaryBase}`,
+        border: `2px solid ${
+          isDanger ? redColor.redColorBase : orangeColor.orangeColorPrimaryBase
+        }`,
         "&:hover": {
           backgroundColor: isCancel
             ? "rgba(0,0,0,0.04)"
+            : isDanger
+            ? redColor.redColorBase
             : orangeColor.orangeColorDarken1,
         },
       }}

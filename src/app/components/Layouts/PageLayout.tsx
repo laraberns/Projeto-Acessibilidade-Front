@@ -1,10 +1,10 @@
 "use client";
 
 import { Box } from "@mui/material";
-import SidebarMenu from "./SidebarMenu";
-import { grayColor, whiteColor } from "../styles/colors";
-import SubtitleSm from "./Typography/SubtitleSm";
-import Title from "./Typography/Title";
+import SidebarMenu from "../Menu/SidebarMenu";
+import { grayColor, whiteColor } from "../../styles/colors";
+import SubtitleSm from "../Typography/SubtitleSm";
+import Title from "../Typography/Title";
 
 interface PageLayoutProps {
   isAdmin: boolean;

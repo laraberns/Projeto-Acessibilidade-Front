@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { grayColor, blackColor, whiteColor } from "../styles/colors";
+import { grayColor, blackColor, whiteColor } from "../../styles/colors";
 
 interface CustomCardHomeProps {
   title: string;

@@ -8,7 +8,7 @@ import {
   OutlinedInput,
   InputAdornment,
 } from "@mui/material";
-import { grayColor, orangeColor, whiteColor } from "../styles/colors";
+import { grayColor, orangeColor, whiteColor } from "../../styles/colors";
 import { ReactNode } from "react";
 
 interface CustomSelectFieldProps {

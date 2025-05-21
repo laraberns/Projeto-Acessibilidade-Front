@@ -3,7 +3,7 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ptBR } from "date-fns/locale";
-import { orangeColor, whiteColor, grayColor } from "../styles/colors";
+import { orangeColor, whiteColor, grayColor } from "../../styles/colors";
 
 interface CustomTimePickerProps {
   label: string;

@@ -1,11 +1,11 @@
 import { Modal, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import CustomTextField from "./CustomTextField";
+import CustomTextField from "../Form/CustomTextField";
 import EmailIcon from "@mui/icons-material/Email";
-import CustomButton from "./CustomButton";
-import { whiteColor } from "../styles/colors";
-import TitleSm from "./Typography/TitleSm";
-import ParagraphSm from "./Typography/ParagraphSm";
+import CustomButton from "../Form/CustomButton";
+import { whiteColor } from "../../styles/colors";
+import TitleSm from "../Typography/TitleSm";
+import ParagraphSm from "../Typography/ParagraphSm";
 import { toast } from "react-toastify";
 
 interface CustomModalProps {

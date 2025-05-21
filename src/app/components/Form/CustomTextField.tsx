@@ -1,5 +1,5 @@
 import { Box, InputAdornment, TextField, TextFieldProps } from "@mui/material";
-import { grayColor, orangeColor, whiteColor } from "../styles/colors";
+import { grayColor, orangeColor, whiteColor } from "../../styles/colors";
 import { ReactNode } from "react";
 
 interface CustomTextFieldProps extends Omit<TextFieldProps, "variant"> {

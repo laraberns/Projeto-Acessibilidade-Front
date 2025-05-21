@@ -2,15 +2,15 @@
 import { Box } from "@mui/material";
 import Title from "../components/Typography/Title";
 import Subtitle from "../components/Typography/Subtitle";
-import CustomTextField from "../components/CustomTextField";
 import EmailIcon from "@mui/icons-material/Email";
-import CustomCheckbox from "../components/CustomCheckbox";
 import Paragraph from "../components/Typography/Paragraph";
-import CustomButton from "../components/CustomButton";
 import CustomDivider from "../components/Divider";
-import CustomModalPassword from "../components/CustomModalPassword";
+import CustomModalPassword from "../components/Modals/CustomModalPassword";
 import { useState } from "react";
 import AuthPageLayout from "../components/Layouts/AuthPageLayout";
+import CustomTextField from "../components/Form/CustomTextField";
+import CustomCheckbox from "../components/Form/CustomCheckbox";
+import CustomButton from "../components/Form/CustomButton";
 
 export default function Login() {
   const [openModal, setOpenModal] = useState(false);
@@ -62,7 +62,7 @@ export default function Login() {
       <CustomButton label="Entrar" onClick={() => alert("Login")} />
       <CustomDivider />
       <Box sx={{ width: "80%", display: "flex", justifyContent: "left" }}>
-        <Paragraph onClick={() => window.location.href = "/register"}>
+        <Paragraph onClick={() => (window.location.href = "/register")}>
           + Criar Conta
         </Paragraph>
       </Box>
