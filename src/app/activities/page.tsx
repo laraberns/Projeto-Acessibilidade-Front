@@ -1,15 +1,16 @@
 "use client";
 
 import { Box, SelectChangeEvent, Typography } from "@mui/material";
-import PageLayout from "../components/PageLayout";
-import CustomCardActivity from "../components/CustomCardActivity";
-import CustomButton from "../components/CustomButton";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
-import CustomSelectField from "../components/CustomSelectField";
-import CustomModalAddActivity from "../components/CustomModalAddActivity";
 import { toast } from "react-toastify";
-import CustomModalCheckActivity from "../components/CustomModalCheckActivity";
+import CustomModalCheckActivity from "../components/Modals/CustomModalCheckActivity";
+import CustomModalDeleteActivity from "../components/Modals/CustomModalDeleteActivity";
+import PageLayout from "../components/Layouts/PageLayout";
+import CustomSelectField from "../components/Form/CustomSelectField";
+import CustomCardActivity from "../components/Cards/CustomCardActivity";
+import CustomButton from "../components/Form/CustomButton";
+import CustomModalAddEditActivity from "../components/Modals/CustomModalAddEditActivity";
 
 function formatDateToLong(dateString: string) {
   const [year, month, day] = dateString.split("-").map(Number);
@@ -53,11 +54,38 @@ export default function Activities() {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [activities, setActivities] = useState(cardData);
   const [checkModalOpen, setCheckModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [activityToDelete, setActivityToDelete] = useState<{
+    title: string;
+    hour: string;
+  } | null>(null);
+
   const [selectedActivity, setSelectedActivity] = useState<{
     title: string;
     hour: string;
     currentState: "active" | "done";
   } | null>(null);
+
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [activityToEdit, setActivityToEdit] = useState<any | null>(null);
+
+  const handleOpenEditModal = (activity: any) => {
+    setActivityToEdit(activity);
+    setEditModalOpen(true);
+  };
+
+  const handleUpdateActivity = (updated: any) => {
+    setActivities((prev) =>
+      prev.map((activity) =>
+        activity.title === activityToEdit?.title &&
+        activity.hour === activityToEdit?.hour
+          ? { ...updated }
+          : activity
+      )
+    );
+    setEditModalOpen(false);
+    setActivityToEdit(null);
+  };
 
   const handleOpenCheckModal = (
     currentState: "active" | "done",
@@ -104,6 +132,11 @@ export default function Activities() {
     setDateRange(event.target.value);
   };
 
+  const handleOpenDeleteModal = (title: string, hour: string) => {
+    setActivityToDelete({ title, hour });
+    setDeleteModalOpen(true);
+  };
+
   const groupedByDate: Record<string, typeof activities> = {};
   activities.forEach((item) => {
     if (!groupedByDate[item.date]) {
@@ -122,6 +155,20 @@ export default function Activities() {
   }) => {
     setActivities((prev) => [...prev, { ...activity, state: "active" }]);
     setAddModalOpen(false);
+  };
+
+  const handleDeleteActivity = () => {
+    if (activityToDelete) {
+      setActivities((prev) =>
+        prev.filter(
+          (activity) =>
+            activity.title !== activityToDelete.title ||
+            activity.hour !== activityToDelete.hour
+        )
+      );
+      toast.success("Atividade deletada com sucesso!");
+      setDeleteModalOpen(false);
+    }
   };
 
   return (
@@ -180,8 +227,8 @@ export default function Activities() {
                   title={card.title}
                   hour={card.hour}
                   state={card.state ?? "active"}
-                  onEdit={() => {}}
-                  onDelete={() => {}}
+                  onEdit={() => handleOpenEditModal(card)}
+                  onDelete={() => handleOpenDeleteModal(card.title, card.hour)}
                   onRequestToggleComplete={(currentState, title, hour) =>
                     handleOpenCheckModal(currentState, title, hour)
                   }
@@ -197,17 +244,38 @@ export default function Activities() {
           onClick={() => setAddModalOpen(true)}
         />
       </Box>
-      <CustomModalAddActivity
+      <CustomModalAddEditActivity
         open={addModalOpen}
         onClose={() => setAddModalOpen(false)}
         onSave={handleSaveNewActivity}
       />
+
+      {editModalOpen && activityToEdit && (
+        <CustomModalAddEditActivity
+          open={editModalOpen}
+          onClose={() => {
+            setEditModalOpen(false);
+            setActivityToEdit(null);
+          }}
+          onSave={handleUpdateActivity}
+          activityToEdit={activityToEdit}
+        />
+      )}
+
       {selectedActivity && (
         <CustomModalCheckActivity
           open={checkModalOpen}
           onClose={() => setCheckModalOpen(false)}
           onSave={handleCompleteActivity}
           activity={selectedActivity}
+        />
+      )}
+      {activityToDelete && (
+        <CustomModalDeleteActivity
+          open={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onDelete={handleDeleteActivity}
+          activity={activityToDelete}
         />
       )}
     </PageLayout>
