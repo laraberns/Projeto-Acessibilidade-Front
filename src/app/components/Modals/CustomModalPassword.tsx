@@ -1,4 +1,4 @@
-import { Modal, Box, IconButton } from "@mui/material";
+import { Modal, Box, IconButton, Alert } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CustomTextField from "../Form/CustomTextField";
 import EmailIcon from "@mui/icons-material/Email";
@@ -7,6 +7,7 @@ import { whiteColor } from "../../styles/colors";
 import TitleSm from "../Typography/TitleSm";
 import ParagraphSm from "../Typography/ParagraphSm";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 interface CustomModalProps {
   open: boolean;
@@ -31,12 +32,28 @@ const style = {
   textAlign: "center",
 };
 
-export default function CustomModalPassword({
-  open,
-  onClose,
-}: CustomModalProps) {
+export default function CustomModalPassword({ open, onClose }: CustomModalProps) {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const validarEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   const handleSendEmail = () => {
+    if (!email.trim()) {
+      setEmailError("O e-mail é obrigatório.");
+      return;
+    }
+
+    if (!validarEmail(email)) {
+      setEmailError("E-mail inválido.");
+      return;
+    }
+
+    setEmailError("");
     toast.success("Email enviado com sucesso! Confira sua caixa de entrada.");
+    onClose();
   };
 
   return (
@@ -57,14 +74,23 @@ export default function CustomModalPassword({
 
         <TitleSm>Esqueceu a sua senha?</TitleSm>
         <ParagraphSm>
-          Não se preocupe, enviaremos uma mensagem para ajudar você a redefinir
-          sua senha.
+          Não se preocupe, enviaremos uma mensagem para ajudar você a redefinir sua senha.
         </ParagraphSm>
+
         <CustomTextField
           label="Email"
           placeholder="ana@email.com"
           icon={<EmailIcon />}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
+
+        {emailError && (
+          <Alert severity="error" sx={{ width: "80%" }}>
+            {emailError}
+          </Alert>
+        )}
+
         <CustomButton label="Enviar" onClick={handleSendEmail} />
       </Box>
     </Modal>
