@@ -1,12 +1,12 @@
 "use client";
-import { Box, Alert } from "@mui/material";
+import { Box, Alert, CircularProgress } from "@mui/material";
 import Title from "../components/Typography/Title";
 import Subtitle from "../components/Typography/Subtitle";
 import EmailIcon from "@mui/icons-material/Email";
 import Paragraph from "../components/Typography/Paragraph";
 import CustomDivider from "../components/Divider";
 import CustomModalPassword from "../components/Modals/CustomModalPassword";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthPageLayout from "../components/Layouts/AuthPageLayout";
 import CustomTextField from "../components/Form/CustomTextField";
 import CustomCheckbox from "../components/Form/CustomCheckbox";
@@ -18,10 +18,20 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erroLogin, setErroLogin] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   const router = useRouter();
 
-  // HARD-CODED
+  // HARD CODED
+  useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("auth") || "{}");
+    if (auth.isLoggedIn) {
+      router.push("/home");
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [router]);
+
   const handleLogin = () => {
     if (email === "ana@email.com" && senha === "123") {
       setErroLogin(false);
@@ -41,6 +51,21 @@ export default function Login() {
       setErroLogin(true);
     }
   };
+
+  if (isCheckingAuth) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <AuthPageLayout>
