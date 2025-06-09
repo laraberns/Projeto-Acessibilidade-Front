@@ -1,5 +1,5 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Alert } from "@mui/material";
 import Title from "../components/Typography/Title";
 import Subtitle from "../components/Typography/Subtitle";
 import EmailIcon from "@mui/icons-material/Email";
@@ -11,9 +11,36 @@ import AuthPageLayout from "../components/Layouts/AuthPageLayout";
 import CustomTextField from "../components/Form/CustomTextField";
 import CustomCheckbox from "../components/Form/CustomCheckbox";
 import CustomButton from "../components/Form/CustomButton";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [openModal, setOpenModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [erroLogin, setErroLogin] = useState(false);
+
+  const router = useRouter();
+
+  // HARD-CODED
+  const handleLogin = () => {
+    if (email === "ana@email.com" && senha === "123") {
+      setErroLogin(false);
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({ isLoggedIn: true, isAdmin: false })
+      );
+      router.push("/home");
+    } else if (email === "maria@email.com" && senha === "123") {
+      setErroLogin(false);
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({ isLoggedIn: true, isAdmin: true })
+      );
+      router.push("/home");
+    } else {
+      setErroLogin(true);
+    }
+  };
 
   return (
     <AuthPageLayout>
@@ -34,8 +61,21 @@ export default function Login() {
           label="Email"
           placeholder="ana@email.com"
           icon={<EmailIcon />}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <CustomTextField label="Senha" placeholder="********" />
+        <CustomTextField
+          label="Senha"
+          placeholder="********"
+          type="password"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+        />
+        {erroLogin && (
+          <Alert severity="error" sx={{ width: "80%" }}>
+            Email ou senha incorretos.
+          </Alert>
+        )}
       </Box>
       <Box
         sx={{
@@ -59,7 +99,8 @@ export default function Login() {
           Esqueci a minha senha
         </Paragraph>
       </Box>
-      <CustomButton label="Entrar" onClick={() => alert("Login")} />
+
+      <CustomButton label="Entrar" onClick={handleLogin} />
       <CustomDivider />
       <Box sx={{ width: "80%", display: "flex", justifyContent: "left" }}>
         <Paragraph onClick={() => (window.location.href = "/register")}>

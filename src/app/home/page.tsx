@@ -1,14 +1,43 @@
 "use client";
 
-import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Box, CircularProgress } from "@mui/material";
 import SubtitleSm from "../components/Typography/SubtitleSm";
 import PageLayout from "../components/Layouts/PageLayout";
 import CustomCardHome from "../components/Cards/CustomCardHome";
 import CustomMenuHome from "../components/Menu/CustomMenuHome";
 
-const isAdmin = false;
-
 export default function Home() {
+  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+
+  // HARD-CODED
+  useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("auth") || "{}");
+    if (!auth.isLoggedIn) {
+      router.push("/login");
+    } else {
+      setIsAdmin(auth.isAdmin === true);
+    }
+  }, [router]);
+
+  if (isAdmin === null) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   const userName = isAdmin ? "Maria" : "Ana";
   const subtitleText = isAdmin
     ? "Aqui está tudo o que você precisa saber da rotina da Ana 🧡"
