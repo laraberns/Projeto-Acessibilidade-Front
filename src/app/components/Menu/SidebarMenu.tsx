@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, IconButton, Avatar, useMediaQuery, Theme } from "@mui/material";
-import { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
@@ -9,38 +8,52 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { whiteColor, grayColor } from "../../styles/colors";
 import SidebarMenuItem from "./SidebarMenuItem";
+import { useRouter, usePathname } from "next/navigation";
 
 interface SidebarMenuProps {
   isAdmin: boolean;
 }
 
 export default function SidebarMenu({ isAdmin }: SidebarMenuProps) {
-  const [selectedItem, setSelectedItem] = useState("Tela Inicial");
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
+  const router = useRouter();
+  const pathname = usePathname();
 
   const menuItems = isAdmin
     ? [
-        { label: "Tela Inicial", icon: <HomeIcon sx={{ fontSize: 28 }} /> },
+        {
+          label: "Tela Inicial",
+          icon: <HomeIcon sx={{ fontSize: 28 }} />,
+          path: "/home",
+        },
         {
           label: "Rotina da Ana",
           icon: <CalendarMonthIcon sx={{ fontSize: 28 }} />,
+          path: "/activities",
         },
         {
           label: "Relatórios",
           icon: <AssessmentIcon sx={{ fontSize: 28 }} />,
+          path: "/reports",
         },
       ]
     : [
-        { label: "Tela Inicial", icon: <HomeIcon sx={{ fontSize: 28 }} /> },
+        {
+          label: "Tela Inicial",
+          icon: <HomeIcon sx={{ fontSize: 28 }} />,
+          path: "/home",
+        },
         {
           label: "Minha Rotina",
           icon: <CalendarMonthIcon sx={{ fontSize: 28 }} />,
+          path: "/activities",
         },
         {
           label: "Acessibilidade",
           icon: <AccessibilityNewIcon sx={{ fontSize: 28 }} />,
+          path: "/accessibility",
         },
       ];
 
@@ -78,8 +91,8 @@ export default function SidebarMenu({ isAdmin }: SidebarMenuProps) {
             key={item.label}
             label={item.label}
             icon={item.icon}
-            selected={selectedItem === item.label}
-            onClick={() => setSelectedItem(item.label)}
+            selected={pathname === item.path}
+            onClick={() => router.push(item.path)}
             showLabel={!isMobile}
           />
         ))}

@@ -22,6 +22,24 @@ export default function Home() {
     }
   }, [router]);
 
+  function formatarDataAtual(): string {
+    const hoje = new Date();
+    const diasSemana = [
+      "Domingo",
+      "Segunda-Feira",
+      "Terça-Feira",
+      "Quarta-Feira",
+      "Quinta-Feira",
+      "Sexta-Feira",
+      "Sábado",
+    ];
+    const diaSemana = diasSemana[hoje.getDay()];
+    const dia = String(hoje.getDate()).padStart(2, "0");
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+    const ano = hoje.getFullYear();
+    return `${diaSemana}, ${dia}/${mes}/${ano}`;
+  }
+
   if (isAdmin === null) {
     return (
       <Box
@@ -46,7 +64,7 @@ export default function Home() {
   const cardData = [
     {
       title: "Data Atual",
-      description: "Segunda-Feira, 31/03/2024",
+      description: formatarDataAtual(),
     },
     {
       title: "Resumo do Dia",
@@ -69,14 +87,14 @@ export default function Home() {
 
   const quickAccessItems = isAdmin
     ? [
-        { title: "Atividades da Ana", link: "/rotina" },
-        { title: "Relatórios", link: "/relatorios" },
-        { title: "Nova Atividade", link: "/atividades" },
+        { title: "Atividades da Ana", link: "/activities" },
+        { title: "Relatórios", link: "/reports" },
+        { title: "Nova Atividade", link: "/activities" },
       ]
     : [
-        { title: "Minhas atividades", link: "/rotina" },
-        { title: "Nova Atividade", link: "/atividades" },
-        { title: "Acessibilidade", link: "/acessibilidade" },
+        { title: "Minhas atividades", link: "/activities" },
+        { title: "Nova Atividade", link: "/activities" },
+        { title: "Acessibilidade", link: "/accessibility" },
       ];
 
   return (
