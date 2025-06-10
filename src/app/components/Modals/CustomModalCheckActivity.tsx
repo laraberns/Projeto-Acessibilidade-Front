@@ -127,7 +127,14 @@ export default function CustomModalCheckActivity({
           }}
         >
           <CustomButton label="Cancelar" onClick={onClose} variant="cancel" />
-          <CustomButton label="Sim, concluir" onClick={onSave} />
+          <CustomButton
+            label={
+              activity.currentState === "done"
+                ? "Sim, desmarcar"
+                : "Sim, concluir"
+            }
+            onClick={onSave}
+          />
         </Box>
       </Box>
     </Modal>

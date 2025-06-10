@@ -1,8 +1,13 @@
 "use client";
 
-import { Box, SelectChangeEvent, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CustomModalCheckActivity from "../components/Modals/CustomModalCheckActivity";
 import CustomModalDeleteActivity from "../components/Modals/CustomModalDeleteActivity";
@@ -11,6 +16,15 @@ import CustomSelectField from "../components/Form/CustomSelectField";
 import CustomCardActivity from "../components/Cards/CustomCardActivity";
 import CustomButton from "../components/Form/CustomButton";
 import CustomModalAddEditActivity from "../components/Modals/CustomModalAddEditActivity";
+import { useRouter } from "next/navigation";
+import {
+  isWithinInterval,
+  parseISO,
+  addWeeks,
+  addMonths,
+  startOfWeek,
+} from "date-fns";
+import Paragraph from "../components/Typography/Paragraph";
 
 function formatDateToLong(dateString: string) {
   const [year, month, day] = dateString.split("-").map(Number);
@@ -22,11 +36,7 @@ function formatDateToLong(dateString: string) {
   }).format(localDate);
 }
 
-const isAdmin = false;
 const title = "Minhas Atividades";
-const subtitleText = isAdmin
-  ? "Visualize e acompanhe suas atividades da rotina da Ana"
-  : "Visualize e acompanhe suas atividades da sua rotina";
 
 const cardData = [
   {
@@ -68,6 +78,22 @@ export default function Activities() {
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [activityToEdit, setActivityToEdit] = useState<any | null>(null);
+  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+
+  // HARD-CODED
+  useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("auth") || "{}");
+    if (!auth.isLoggedIn) {
+      router.push("/login");
+    } else {
+      setIsAdmin(auth.isAdmin === true);
+    }
+  }, [router]);
+
+  const subtitleText = isAdmin
+    ? "Visualize e acompanhe suas atividades da rotina da Ana"
+    : "Visualize e acompanhe suas atividades da sua rotina";
 
   const handleOpenEditModal = (activity: any) => {
     setActivityToEdit(activity);
@@ -137,8 +163,10 @@ export default function Activities() {
     setDeleteModalOpen(true);
   };
 
-  const groupedByDate: Record<string, typeof activities> = {};
-  activities.forEach((item) => {
+  const filteredActivities = filterActivitiesByDateRange(activities, dateRange);
+
+  const groupedByDate: Record<string, typeof filteredActivities> = {};
+  filteredActivities.forEach((item) => {
     if (!groupedByDate[item.date]) {
       groupedByDate[item.date] = [];
     }
@@ -171,25 +199,61 @@ export default function Activities() {
     }
   };
 
+  function filterActivitiesByDateRange(
+    activities: typeof cardData,
+    range: string
+  ) {
+    const today = new Date();
+    const start = startOfWeek(today, { weekStartsOn: 1 });
+    let end: Date;
+
+    switch (range) {
+      case "2weeks":
+        end = addWeeks(start, 2);
+        break;
+      case "month":
+        end = addMonths(start, 1);
+        break;
+      case "all":
+        return activities;
+      case "week":
+      default:
+        end = addWeeks(start, 1);
+    }
+
+    return activities.filter((activity) =>
+      isWithinInterval(parseISO(activity.date), { start, end })
+    );
+  }
+
+  if (isAdmin === null) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <PageLayout isAdmin={isAdmin} title={title} subtitle={subtitleText}>
       <Box
         sx={{
-          margin: "auto",
           display: "flex",
           flexWrap: "wrap",
-          gap: 2,
-          width: "100%",
+          gap: 1,
           flexDirection: "column",
+          width: "100%",
         }}
       >
-        <Box
-          sx={{
-            maxWidth: "350px",
-            width: "100%",
-            mt: 2,
-          }}
-        >
+        <Box sx={{ maxWidth: "350px", width: "100%", mt: 2 }}>
           <CustomSelectField
             label="Período"
             icon={<CalendarMonthIcon sx={{ mr: 1 }} />}
@@ -204,15 +268,20 @@ export default function Activities() {
           />
         </Box>
 
-        <Box
-          sx={{
-            flex: "1 1 60%",
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-          }}
-        >
-          {sortedDates.map((date) => (
+        {sortedDates.length === 0 ? (
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              my: 3,
+            }}
+          >
+            <Paragraph>
+              Nenhuma atividade encontrada para o período selecionado.
+            </Paragraph>
+          </Box>
+        ) : (
+          sortedDates.map((date) => (
             <Box
               key={date}
               sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}
@@ -235,8 +304,8 @@ export default function Activities() {
                 />
               ))}
             </Box>
-          ))}
-        </Box>
+          ))
+        )}
       </Box>
       <Box sx={{ maxWidth: 300 }}>
         <CustomButton
