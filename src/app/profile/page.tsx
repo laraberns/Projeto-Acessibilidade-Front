@@ -32,6 +32,11 @@ export default function Profile() {
     genero: "female",
   });
   const [avatar, setAvatar] = useState<string | null>(null);
+  const [showPasswordChange, setShowPasswordChange] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    novaSenha: "",
+    confirmarSenha: "",
+  });
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("auth") || "{}");
@@ -49,6 +54,24 @@ export default function Profile() {
 
   const handleSave = () => {
     toast.success("Perfil salvo com sucesso!");
+  };
+
+  const handlePasswordChange = (field: string, value: string) => {
+    setPasswordData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSavePassword = () => {
+    if (passwordData.novaSenha !== passwordData.confirmarSenha) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
+    if (passwordData.novaSenha.length < 6) {
+      toast.error("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+    toast.success("Senha alterada com sucesso!");
+    setPasswordData({ novaSenha: "", confirmarSenha: "" });
+    setShowPasswordChange(false);
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +153,6 @@ export default function Profile() {
       <Box
         sx={{
           display: "flex",
-          gap: 1,
         }}
       >
         {/* Coluna 1 */}
@@ -187,9 +209,47 @@ export default function Profile() {
           />
         </Box>
       </Box>
-      <Box sx={{ mt: 3, display: "flex", maxWidth: "300px" }}>
-        <CustomButton label="Salvar" onClick={handleSave} />
+      <Box
+        sx={{
+          mt: 3,
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box sx={{ width: "50%" }}>
+          <CustomButton label="Salvar" onClick={handleSave} />
+        </Box>
+        <Box sx={{ width: "50%" }}>
+          <CustomButton
+            label={
+              showPasswordChange
+                ? "Cancelar alteração de senha"
+                : "Alterar Senha"
+            }
+            onClick={() => setShowPasswordChange((prev) => !prev)}
+          />
+        </Box>
       </Box>
+
+      {showPasswordChange && (
+        <Box sx={{ mt: 3, display: "flex", flexDirection: "column", gap: 2, maxWidth: 600 }}>
+          <CustomTextField
+            label="Nova Senha"
+            type="password"
+            value={passwordData.novaSenha}
+            onChange={(e) => handlePasswordChange("novaSenha", e.target.value)}
+          />
+          <CustomTextField
+            label="Confirmar Senha"
+            type="password"
+            value={passwordData.confirmarSenha}
+            onChange={(e) =>
+              handlePasswordChange("confirmarSenha", e.target.value)
+            }
+          />
+          <CustomButton label="Salvar Senha" onClick={handleSavePassword} />
+        </Box>
+      )}
     </PageLayout>
   );
 }

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { orangeColor, whiteColor, grayColor, redColor } from "../../styles/colors";
+import { orangeColor, whiteColor, redColor } from "../../styles/colors";
 
 interface CustomButtonProps {
   label: string;
