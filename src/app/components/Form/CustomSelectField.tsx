@@ -18,6 +18,7 @@ interface CustomSelectFieldProps {
   options: { label: string; value: string | number }[];
   value: string;
   onChange: (event: SelectChangeEvent) => void;
+  disabled?: boolean;
 }
 
 export default function CustomSelectField({
@@ -27,11 +28,12 @@ export default function CustomSelectField({
   options,
   value,
   onChange,
+  disabled = false, 
   ...rest
 }: CustomSelectFieldProps) {
   return (
     <Box sx={{ width: "80%" }}>
-      <FormControl fullWidth required={required}>
+      <FormControl fullWidth required={required} disabled={disabled}>
         <InputLabel
           sx={{
             color: orangeColor.orangeColorDarken1,
@@ -50,6 +52,7 @@ export default function CustomSelectField({
         <Select
           value={value}
           onChange={onChange}
+          disabled={disabled} 
           input={
             <OutlinedInput
               startAdornment={

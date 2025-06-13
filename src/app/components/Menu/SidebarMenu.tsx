@@ -111,7 +111,10 @@ export default function SidebarMenu({ isAdmin }: SidebarMenuProps) {
           borderTop: `1px solid ${grayColor.grayColorPrimaryLigthen1}`,
         }}
       >
-        <Avatar sx={{ width: 32, height: 32 }} />
+        <Avatar
+          sx={{ width: 32, height: 32, cursor: "pointer" }}
+          onClick={() => router.push("/profile")}
+        />
         <IconButton>
           <NotificationsIcon
             sx={{ fontSize: 24, color: grayColor.grayColorDarken1 }}
