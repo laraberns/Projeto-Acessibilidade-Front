@@ -1,13 +1,15 @@
 "use client";
 
-import { Box } from "@mui/material";
-import { useState } from "react";
+import { Box, CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
 import PageLayout from "../components/Layouts/PageLayout";
 import CustomSelectField from "../components/Form/CustomSelectField";
 import CustomCheckbox from "../components/Form/CustomCheckbox";
 import CustomButton from "../components/Form/CustomButton";
 import Paragraph from "../components/Typography/Paragraph";
 import CustomSlider from "../components/Form/CustomSlider";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const marks = [
   { value: 0, label: "Pequeno" },
@@ -19,6 +21,19 @@ const marks = [
 export default function Accessibility() {
   const [colorMode, setColorMode] = useState("Padrão");
   const [fontSize, setFontSize] = useState(1);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("auth") || "{}");
+    if (!auth.isLoggedIn) {
+      router.push("/login");
+    } else if (auth.isAdmin) {
+      router.push("/home");
+    } else {
+      setIsAdmin(false);
+    }
+  }, [router]);
 
   const [soundAlerts, setSoundAlerts] = useState({
     reminders: true,
@@ -33,10 +48,24 @@ export default function Accessibility() {
   });
 
   const handleSave = () => {
-    console.log("Modo de cor:", colorMode);
-    console.log("Alertas sonoros:", soundAlerts);
-    console.log("Leitura de tela:", screenReader);
+    toast.success("Configurações salvas com sucesso!");
   };
+
+  if (isAdmin === null) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <PageLayout
@@ -61,7 +90,14 @@ export default function Accessibility() {
             marks={marks}
           />
         </Box>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2,width: "100%" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            width: "100%",
+          }}
+        >
           <Paragraph>Modo de cor:</Paragraph>
           <Box sx={{ maxWidth: "600px" }}>
             <CustomSelectField

@@ -1,12 +1,13 @@
 "use client";
 
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import PageLayout from "../components/Layouts/PageLayout";
 import CustomDatePicker from "../components/Form/CustomDatePicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../components/Form/CustomButton";
 import CustomTableSection from "../components/CustomTableSection";
 import ParagraphSm from "../components/Typography/ParagraphSm";
+import { useRouter } from "next/navigation";
 
 export default function Reports() {
   const [initialSelectedDate, setInitialSelectedDate] = useState<Date | null>(
@@ -16,6 +17,35 @@ export default function Reports() {
     new Date()
   );
   const [showReport, setShowReport] = useState<boolean>(false);
+  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("auth") || "{}");
+    if (!auth.isLoggedIn) {
+      router.push("/login");
+    } else if (!auth.isAdmin) {
+      router.push("/home");
+    } else {
+      setIsAdmin(true);
+    }
+  }, [router]);
+
+  if (isAdmin === null) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <PageLayout
@@ -99,7 +129,11 @@ export default function Reports() {
           >
             <CustomButton
               label="Exportar Relatório (PDF)"
-              onClick={() => console.log("oi")}
+              onClick={() =>
+                alert(
+                  "A exportação de relatório estará disponível após integração com o servidor."
+                )
+              }
             />
           </Box>
         </>
