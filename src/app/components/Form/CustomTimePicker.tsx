@@ -10,6 +10,8 @@ interface CustomTimePickerProps {
   value: Date | null;
   onChange: (newValue: Date | null) => void;
   required?: boolean;
+  error?: boolean;
+  helperText?: string;
 }
 
 export default function CustomTimePicker({
@@ -17,6 +19,8 @@ export default function CustomTimePicker({
   value,
   onChange,
   required = true,
+  error = false,
+  helperText = "",
 }: CustomTimePickerProps) {
   return (
     <Box sx={{ width: "80%" }}>
@@ -58,6 +62,8 @@ export default function CustomTimePicker({
             textField: {
               fullWidth: true,
               required: required,
+              error: error,
+              helperText: helperText,
             },
           }}
         />

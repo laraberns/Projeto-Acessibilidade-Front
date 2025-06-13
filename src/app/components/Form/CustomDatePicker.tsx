@@ -10,6 +10,8 @@ interface CustomDatePickerProps {
   value: Date | null;
   onChange: (newValue: Date | null) => void;
   required?: boolean;
+  error?: boolean;
+  helperText?: string;
 }
 
 export default function CustomDatePicker({
@@ -17,6 +19,8 @@ export default function CustomDatePicker({
   value,
   onChange,
   required = true,
+  error = false,
+  helperText = "",
 }: CustomDatePickerProps) {
   return (
     <Box sx={{ width: "80%" }}>
@@ -41,6 +45,8 @@ export default function CustomDatePicker({
             textField: {
               fullWidth: true,
               required: required,
+              error: error,
+              helperText: helperText,
               InputLabelProps: {
                 shrink: true,
                 sx: {

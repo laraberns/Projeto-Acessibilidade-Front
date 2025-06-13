@@ -73,6 +73,10 @@ export default function CustomModalAddEditActivity({
     return date;
   });
 
+  const [errorActivityName, setErrorActivityName] = useState(false);
+  const [errorDate, setErrorDate] = useState(false);
+  const [errorHour, setErrorHour] = useState(false);
+
   useEffect(() => {
     if (activityToEdit) {
       setActivityName(activityToEdit.title);
@@ -109,21 +113,40 @@ export default function CustomModalAddEditActivity({
       setStartTime(start);
       setEndTime(end);
     }
+
+    setErrorActivityName(false);
+    setErrorDate(false);
+    setErrorHour(false);
   }, [activityToEdit, open]);
 
   const handleSave = () => {
+    let hasError = false;
+
     if (!activityName.trim()) {
-      toast.error("Por favor, preencha o nome da atividade.");
-      return;
+      setErrorActivityName(true);
+      hasError = true;
+    } else {
+      setErrorActivityName(false);
     }
 
-    if (!selectedDate || !startTime || !endTime) {
-      toast.error("Data e horários devem estar preenchidos.");
-      return;
+    if (!selectedDate) {
+      setErrorDate(true);
+      hasError = true;
+    } else {
+      setErrorDate(false);
     }
+
+    if (!startTime || !endTime || endTime <= startTime) {
+      setErrorHour(true);
+      hasError = true;
+    } else {
+      setErrorHour(false);
+    }
+
+    if (hasError) return;
 
     const formatDate = (date: Date) => {
-      return date.toISOString().split("T")[0]; // yyyy-mm-dd
+      return date.toISOString().split("T")[0];
     };
 
     const formatHourRange = (start: Date, end: Date) => {
@@ -138,8 +161,8 @@ export default function CustomModalAddEditActivity({
 
     const newActivity: ActivityData = {
       title: activityName,
-      date: formatDate(selectedDate),
-      hour: formatHourRange(startTime, endTime),
+      date: formatDate(selectedDate!),
+      hour: formatHourRange(startTime!, endTime!),
       description,
       state: "active",
     };
@@ -159,12 +182,7 @@ export default function CustomModalAddEditActivity({
       <Box sx={{ ...modalStyle, position: "relative" }}>
         <IconButton
           onClick={onClose}
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            color: "#999",
-          }}
+          sx={{ position: "absolute", top: 8, right: 8, color: "#999" }}
           aria-label="Fechar"
         >
           <CloseIcon />
@@ -177,12 +195,16 @@ export default function CustomModalAddEditActivity({
           placeholder="Ex: Sessão de terapia"
           value={activityName}
           onChange={(e) => setActivityName(e.target.value)}
+          error={errorActivityName}
+          helperText={errorActivityName ? "Preencha o nome da atividade" : ""}
         />
 
         <CustomDatePicker
           label="Data da Atividade"
           value={selectedDate}
           onChange={setSelectedDate}
+          error={errorDate}
+          helperText={errorDate ? "Selecione uma data" : ""}
         />
 
         <CustomTimePicker
@@ -195,6 +217,8 @@ export default function CustomModalAddEditActivity({
           label="Horário de Término"
           value={endTime}
           onChange={setEndTime}
+          error={errorHour}
+          helperText={errorHour ? "Horário inválido" : ""}
         />
 
         <CustomTextField
