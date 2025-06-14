@@ -1,3 +1,5 @@
+import { IActivity } from "./IActivity";
+
 export interface ICustomModalAddEditActivities {
   open: boolean;
   onClose: () => void;
