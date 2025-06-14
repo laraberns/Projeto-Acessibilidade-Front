@@ -226,7 +226,7 @@ export default function Register() {
                 { label: "Sou Usuário Principal", value: "main" },
               ]}
               value={profileType}
-              onChange={(e) => setProfileType(e.target.value as any)}
+              onChange={(e) => setProfileType(e.target.value as string)}
             />
             <CustomTextField
               label="Nome completo"

@@ -48,7 +48,7 @@ export default function Profile() {
     }
   }, [router]);
 
-  const handleChange = (field: string, value: any) => {
+  const handleChange = (field: string, value: Date | null | string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -232,7 +232,15 @@ export default function Profile() {
       </Box>
 
       {showPasswordChange && (
-        <Box sx={{ mt: 3, display: "flex", flexDirection: "column", gap: 2, maxWidth: 600 }}>
+        <Box
+          sx={{
+            mt: 3,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            maxWidth: 600,
+          }}
+        >
           <CustomTextField
             label="Nova Senha"
             type="password"
