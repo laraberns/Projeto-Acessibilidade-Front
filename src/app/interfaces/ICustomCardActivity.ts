@@ -1,5 +1,5 @@
 
-interface ICustomCardActivity {
+export interface ICustomCardActivity {
   title: string;
   hour: string;
   state: string;

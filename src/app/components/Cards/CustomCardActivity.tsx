@@ -5,6 +5,7 @@ import CheckIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/EditOutlined";
 import { grayColor, greenColor, orangeColor } from "@/app/styles/colors";
+import { ICustomCardActivity } from "@/app/interfaces/ICustomCardActivity";
 
 export default function CustomCardActivity({
   title,
