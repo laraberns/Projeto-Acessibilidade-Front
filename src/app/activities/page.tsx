@@ -177,12 +177,7 @@ export default function Activities() {
 
   const sortedDates = Object.keys(groupedByDate).sort();
 
-  const handleSaveNewActivity = (activity: {
-    title: string;
-    date: string;
-    hour: string;
-    state?: "active" | "done";
-  }) => {
+  const handleSaveNewActivity = (activity: IActivity) => {
     setActivities((prev) => [...prev, { ...activity, state: "active" }]);
     setAddModalOpen(false);
   };
