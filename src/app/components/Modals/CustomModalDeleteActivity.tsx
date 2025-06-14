@@ -5,6 +5,7 @@ import CustomButton from "../Form/CustomButton";
 import { blackColor, redColor, whiteColor } from "../../styles/colors";
 import Paragraph from "../Typography/Paragraph";
 import CustomDivider from "../Divider";
+import { ICustomModalDeleteActivity } from "@/app/interfaces/ICustomModalDeleteActivity";
 
 const modalStyle = {
   position: "absolute" as const,
@@ -18,22 +19,12 @@ const modalStyle = {
   maxWidth: 500,
 };
 
-interface CustomModalDeleteActivityProps {
-  open: boolean;
-  onClose: () => void;
-  onDelete: () => void;
-  activity: {
-    title: string;
-    hour: string;
-  };
-}
-
 export default function CustomModalDeleteActivity({
   open,
   onClose,
   onDelete,
   activity,
-}: CustomModalDeleteActivityProps) {
+}: ICustomModalDeleteActivity) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={{ ...modalStyle, position: "relative" }}>

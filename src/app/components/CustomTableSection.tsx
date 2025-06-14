@@ -8,18 +8,13 @@ import {
   Paper,
 } from "@mui/material";
 import ParagraphSm from "./Typography/ParagraphSm";
-
-interface CustomTableSectionProps {
-  title: string;
-  headers: string[];
-  rows: (string | number)[][];
-}
+import { ICustomTableSection } from "../interfaces/ICustomTableSection";
 
 export default function CustomTableSection({
   title,
   headers,
   rows,
-}: CustomTableSectionProps) {
+}: ICustomTableSection) {
   return (
     <Box sx={{ mt: 4, mb: 2, textAlign: "center" }}>
       <ParagraphSm>{title}</ParagraphSm>

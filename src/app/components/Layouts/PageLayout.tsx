@@ -5,20 +5,14 @@ import SidebarMenu from "../Menu/SidebarMenu";
 import { grayColor, whiteColor } from "../../styles/colors";
 import SubtitleSm from "../Typography/SubtitleSm";
 import Title from "../Typography/Title";
-
-interface PageLayoutProps {
-  isAdmin: boolean;
-  title: string;
-  subtitle: string;
-  children: React.ReactNode;
-}
+import { IPageLayout } from "@/app/interfaces/IPageLayout";
 
 export default function PageLayout({
   isAdmin = false,
   title,
   subtitle,
   children,
-}: PageLayoutProps) {
+}: IPageLayout) {
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
       <SidebarMenu isAdmin={isAdmin} />

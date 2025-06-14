@@ -3,20 +3,7 @@
 import { Slider, Box } from "@mui/material";
 import Paragraph from "../Typography/Paragraph";
 import { grayColor, orangeColor } from "@/app/styles/colors";
-
-interface Mark {
-  value: number;
-  label: string;
-}
-
-interface CustomSliderProps {
-  label: string;
-  value: number;
-  onChange: (value: number) => void;
-  marks: Mark[];
-  min?: number;
-  max?: number;
-}
+import { ICustomSlider } from "@/app/interfaces/ICustomSlider";
 
 export default function CustomSlider({
   label,
@@ -25,7 +12,7 @@ export default function CustomSlider({
   marks,
   min = 0,
   max = 3,
-}: CustomSliderProps) {
+}: ICustomSlider) {
   return (
     <Box sx={{ width: "100%", mt: 3, display: "flex", flexDirection: "column", gap: 2 }}>
       <Paragraph>{label}</Paragraph>

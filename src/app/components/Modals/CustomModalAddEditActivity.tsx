@@ -11,21 +11,8 @@ import CustomTimePicker from "../Form/CustomTimePicker";
 import CustomCheckbox from "../Form/CustomCheckbox";
 import CustomSelectField from "../Form/CustomSelectField";
 import CustomButton from "../Form/CustomButton";
-
-interface ActivityData {
-  title: string;
-  date: string;
-  hour: string;
-  description?: string;
-  state?: "active" | "done";
-}
-
-interface CustomModalAddEditActivityProps {
-  open: boolean;
-  onClose: () => void;
-  onSave: (activity: ActivityData) => void;
-  activityToEdit?: ActivityData | null;
-}
+import { ICustomModalAddEditActivities } from "@/app/interfaces/ICustomModalAddEditActivities";
+import { IActivity } from "@/app/interfaces/IActivity";
 
 const modalStyle = {
   position: "absolute" as const,
@@ -50,7 +37,7 @@ export default function CustomModalAddEditActivity({
   onClose,
   onSave,
   activityToEdit,
-}: CustomModalAddEditActivityProps) {
+}: ICustomModalAddEditActivities) {
   const [activityName, setActivityName] = useState("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [description, setDescription] = useState("");
@@ -159,7 +146,7 @@ export default function CustomModalAddEditActivity({
       return `${formatTime(start)} - ${formatTime(end)}`;
     };
 
-    const newActivity: ActivityData = {
+    const newActivity: IActivity = {
       title: activityName,
       date: formatDate(selectedDate!),
       hour: formatHourRange(startTime!, endTime!),

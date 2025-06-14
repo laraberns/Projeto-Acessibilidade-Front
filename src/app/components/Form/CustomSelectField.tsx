@@ -4,22 +4,11 @@ import {
   Select,
   InputLabel,
   FormControl,
-  SelectChangeEvent,
   OutlinedInput,
   InputAdornment,
 } from "@mui/material";
 import { grayColor, orangeColor, whiteColor } from "../../styles/colors";
-import { ReactNode } from "react";
-
-interface CustomSelectFieldProps {
-  label: string;
-  icon?: ReactNode;
-  required?: boolean;
-  options: { label: string; value: string | number }[];
-  value: string;
-  onChange: (event: SelectChangeEvent) => void;
-  disabled?: boolean;
-}
+import { ICustomSelectField } from "@/app/interfaces/ICustomSelectField";
 
 export default function CustomSelectField({
   label,
@@ -28,9 +17,9 @@ export default function CustomSelectField({
   options,
   value,
   onChange,
-  disabled = false, 
+  disabled = false,
   ...rest
-}: CustomSelectFieldProps) {
+}: ICustomSelectField) {
   return (
     <Box sx={{ width: "80%" }}>
       <FormControl fullWidth required={required} disabled={disabled}>
@@ -52,12 +41,15 @@ export default function CustomSelectField({
         <Select
           value={value}
           onChange={onChange}
-          disabled={disabled} 
+          disabled={disabled}
           input={
             <OutlinedInput
               startAdornment={
                 icon ? (
-                  <InputAdornment position="start" sx={{ color: grayColor.grayColorPrimaryLigthen2 }}>
+                  <InputAdornment
+                    position="start"
+                    sx={{ color: grayColor.grayColorPrimaryLigthen2 }}
+                  >
                     {icon}
                   </InputAdornment>
                 ) : undefined

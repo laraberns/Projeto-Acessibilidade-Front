@@ -1,14 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import { ReactNode } from "react";
 import { blackColor, grayColor } from "../../styles/colors";
+import { ISidebarMenuItem } from "@/app/interfaces/ISidebarMenuItem";
 
-interface SidebarMenuItemProps {
-  icon: ReactNode;
-  label: string;
-  selected?: boolean;
-  onClick?: () => void;
-  showLabel?: boolean;
-}
 
 export default function SidebarMenuItem({
   icon,
@@ -16,7 +9,7 @@ export default function SidebarMenuItem({
   selected = false,
   onClick,
   showLabel = true,
-}: SidebarMenuItemProps) {
+}: ISidebarMenuItem) {
   return (
     <Box
       onClick={onClick}

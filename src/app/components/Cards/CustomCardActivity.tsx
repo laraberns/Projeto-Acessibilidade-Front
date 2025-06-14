@@ -6,19 +6,6 @@ import DeleteIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/EditOutlined";
 import { grayColor, greenColor, orangeColor } from "@/app/styles/colors";
 
-interface CustomCardActivityProps {
-  title: string;
-  hour: string;
-  state: string;
-  onEdit?: () => void;
-  onDelete?: () => void;
-  onRequestToggleComplete?: (
-    currentState: "active" | "done",
-    title: string,
-    hour: string
-  ) => void;
-}
-
 export default function CustomCardActivity({
   title,
   hour,
@@ -26,7 +13,7 @@ export default function CustomCardActivity({
   onEdit,
   onDelete,
   onRequestToggleComplete,
-}: CustomCardActivityProps) {
+}: ICustomCardActivity) {
   const chipLabel = state === "done" ? "Finalizado" : "Pendente";
   const chipColor =
     state === "done"

@@ -8,11 +8,8 @@ import TitleSm from "../Typography/TitleSm";
 import ParagraphSm from "../Typography/ParagraphSm";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { ICustomModal } from "@/app/interfaces/ICustomModal";
 
-interface CustomModalProps {
-  open: boolean;
-  onClose: () => void;
-}
 
 const style = {
   position: "absolute" as const,
@@ -32,7 +29,7 @@ const style = {
   textAlign: "center",
 };
 
-export default function CustomModalPassword({ open, onClose }: CustomModalProps) {
+export default function CustomModalPassword({ open, onClose }: ICustomModal) {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 

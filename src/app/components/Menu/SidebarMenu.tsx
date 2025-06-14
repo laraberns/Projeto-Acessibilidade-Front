@@ -9,12 +9,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { whiteColor, grayColor } from "../../styles/colors";
 import SidebarMenuItem from "./SidebarMenuItem";
 import { useRouter, usePathname } from "next/navigation";
+import { ISidebarMenu } from "@/app/interfaces/ISidebarMenu";
 
-interface SidebarMenuProps {
-  isAdmin: boolean;
-}
-
-export default function SidebarMenu({ isAdmin }: SidebarMenuProps) {
+export default function SidebarMenu({ isAdmin }: ISidebarMenu) {
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );

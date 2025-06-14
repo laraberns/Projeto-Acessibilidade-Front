@@ -25,6 +25,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import Paragraph from "../components/Typography/Paragraph";
+import { IActivity } from "../interfaces/IActivity";
 
 function formatDateToLong(dateString: string) {
   const [year, month, day] = dateString.split("-").map(Number);
@@ -77,7 +78,8 @@ export default function Activities() {
   } | null>(null);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [activityToEdit, setActivityToEdit] = useState<any | null>(null);
+  const [activityToEdit, setActivityToEdit] = useState<IActivity | null>(null);
+
   const router = useRouter();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
@@ -95,12 +97,12 @@ export default function Activities() {
     ? "Visualize e acompanhe suas atividades da rotina da Ana"
     : "Visualize e acompanhe suas atividades da sua rotina";
 
-  const handleOpenEditModal = (activity: any) => {
+  const handleOpenEditModal = (activity: IActivity) => {
     setActivityToEdit(activity);
     setEditModalOpen(true);
   };
 
-  const handleUpdateActivity = (updated: any) => {
+  const handleUpdateActivity = (updated: IActivity) => {
     setActivities((prev) =>
       prev.map((activity) =>
         activity.title === activityToEdit?.title &&

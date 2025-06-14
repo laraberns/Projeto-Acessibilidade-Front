@@ -5,6 +5,7 @@ import CustomButton from "../Form/CustomButton";
 import { blackColor, greenColor, whiteColor } from "../../styles/colors";
 import Paragraph from "../Typography/Paragraph";
 import CustomDivider from "../Divider";
+import { ICustomModalCheckActivity } from "@/app/interfaces/ICustomModalCheckActivity";
 
 const modalStyle = {
   position: "absolute" as const,
@@ -18,23 +19,12 @@ const modalStyle = {
   maxWidth: 500,
 };
 
-interface CustomModalCheckActivityProps {
-  open: boolean;
-  onClose: () => void;
-  onSave: () => void;
-  activity: {
-    title: string;
-    hour: string;
-    currentState: "active" | "done";
-  };
-}
-
 export default function CustomModalCheckActivity({
   open,
   onClose,
   onSave,
   activity,
-}: CustomModalCheckActivityProps) {
+}: ICustomModalCheckActivity) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={{ ...modalStyle, position: "relative" }}>

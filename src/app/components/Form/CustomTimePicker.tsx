@@ -4,15 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ptBR } from "date-fns/locale";
 import { orangeColor, whiteColor, grayColor } from "../../styles/colors";
-
-interface CustomTimePickerProps {
-  label: string;
-  value: Date | null;
-  onChange: (newValue: Date | null) => void;
-  required?: boolean;
-  error?: boolean;
-  helperText?: string;
-}
+import { ICustomTimePicker } from "@/app/interfaces/ICustomTimePicker";
 
 export default function CustomTimePicker({
   label,
@@ -21,7 +13,7 @@ export default function CustomTimePicker({
   required = true,
   error = false,
   helperText = "",
-}: CustomTimePickerProps) {
+}: ICustomTimePicker) {
   return (
     <Box sx={{ width: "80%" }}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>

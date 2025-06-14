@@ -2,17 +2,9 @@ import { Box, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useRouter } from "next/navigation";
 import { whiteColor, blackColor } from "../../styles/colors";
+import { IMenuHome } from "@/app/interfaces/IMenuHome";
 
-interface MenuItem {
-  title: string;
-  link: string;
-}
-
-interface MenuHomeProps {
-  items: MenuItem[];
-}
-
-export default function CustomMenuHome({ items }: MenuHomeProps) {
+export default function CustomMenuHome({ items }: IMenuHome) {
   const router = useRouter();
 
   return (

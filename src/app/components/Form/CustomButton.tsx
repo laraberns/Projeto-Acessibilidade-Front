@@ -1,17 +1,12 @@
 import { Button } from "@mui/material";
 import { orangeColor, whiteColor, redColor } from "../../styles/colors";
-
-interface CustomButtonProps {
-  label: string;
-  onClick: () => void;
-  variant?: "default" | "cancel" | "danger";
-}
+import { ICustomButton } from "@/app/interfaces/ICustomButton";
 
 export default function CustomButton({
   label,
   onClick,
   variant = "default",
-}: CustomButtonProps) {
+}: ICustomButton) {
   const isCancel = variant === "cancel";
   const isDanger = variant === "danger";
 

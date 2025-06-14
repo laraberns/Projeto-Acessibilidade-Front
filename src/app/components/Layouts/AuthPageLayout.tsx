@@ -2,13 +2,9 @@
 
 import { Box } from "@mui/material";
 import BannerPcImage from "../BannerPCImage";
-import { ReactNode } from "react";
+import { IAuthPageLayout } from "@/app/interfaces/IAuthPageLayout";
 
-interface AuthPageLayoutProps {
-  children: ReactNode;
-}
-
-export default function AuthPageLayout({ children }: AuthPageLayoutProps) {
+export default function AuthPageLayout({ children }: IAuthPageLayout) {
   return (
     <Box display="flex" height="100vh">
       <BannerPcImage />

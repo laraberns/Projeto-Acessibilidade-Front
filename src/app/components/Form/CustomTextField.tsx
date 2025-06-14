@@ -1,11 +1,6 @@
-import { Box, InputAdornment, TextField, TextFieldProps } from "@mui/material";
+import { Box, InputAdornment, TextField } from "@mui/material";
 import { grayColor, orangeColor, whiteColor } from "../../styles/colors";
-import { ReactNode } from "react";
-
-interface CustomTextFieldProps extends Omit<TextFieldProps, "variant"> {
-  icon?: ReactNode;
-  required?: boolean;
-}
+import { ICustomTextField } from "@/app/interfaces/ICustomTextField";
 
 export default function CustomTextField({
   icon,
@@ -13,7 +8,7 @@ export default function CustomTextField({
   label,
   placeholder,
   ...rest
-}: CustomTextFieldProps) {
+}: ICustomTextField) {
   return (
     <Box sx={{ width: "80%" }}>
       <TextField

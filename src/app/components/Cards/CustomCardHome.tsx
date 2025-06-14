@@ -1,15 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { grayColor, blackColor, whiteColor } from "../../styles/colors";
-
-interface CustomCardHomeProps {
-  title: string;
-  description: string;
-}
+import { ICustomCardHome } from "@/app/interfaces/ICustomCardHome";
 
 export default function CustomCardHome({
   title,
   description,
-}: CustomCardHomeProps) {
+}: ICustomCardHome) {
   return (
     <Box
       sx={{

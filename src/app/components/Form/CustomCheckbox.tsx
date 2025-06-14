@@ -1,11 +1,8 @@
-import { Checkbox, FormControlLabel, CheckboxProps } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { orangeColor, blackColor } from "../../styles/colors";
+import { ICustomCheckbox } from "@/app/interfaces/ICustomCheckbox";
 
-interface CustomCheckboxProps extends CheckboxProps {
-  label: string;
-}
-
-export default function CustomCheckbox({ label, ...props }: CustomCheckboxProps) {
+export default function CustomCheckbox({ label, ...props }: ICustomCheckbox) {
   return (
     <FormControlLabel
       control={
