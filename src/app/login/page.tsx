@@ -33,14 +33,14 @@ export default function Login() {
   }, [router]);
 
   const handleLogin = () => {
-    if (email === "ana@email.com" && senha === "123") {
+    if (email === "ana@email.com" && senha === "Senha123@") {
       setErroLogin(false);
       localStorage.setItem(
         "auth",
         JSON.stringify({ isLoggedIn: true, isAdmin: false })
       );
       router.push("/home");
-    } else if (email === "maria@email.com" && senha === "123") {
+    } else if (email === "maria@email.com" && senha === "Senha123@") {
       setErroLogin(false);
       localStorage.setItem(
         "auth",
